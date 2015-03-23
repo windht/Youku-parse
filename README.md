@@ -19,7 +19,7 @@ I just did the wrapping for angular.
         angular.controller('YourCtrl',[Youku,function(Youku){
           Youku.getVideoSrc(anyVideoID).then(function(url){
               // Maybe directly use this url to load a video! No ads!
-              $('#ChooseAPlayer!').attr('src',url);
+              angular.element('ChooseAPlayer!').attr('src',url);
           });
         }])
 
