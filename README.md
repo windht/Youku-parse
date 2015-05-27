@@ -3,6 +3,8 @@ an angular directive for parsing youku video id into real urls.
 
 # Last Update
 Last update the algorithm on March 23rd.
+Functional test on May 27th, worked well.
+Added the cross domain support using jsonp.
 
 # Source
 All the parse functions are from [http://runjs.cn/code/incos4te](http://runjs.cn/code/incos4te).
