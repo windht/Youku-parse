@@ -132,7 +132,7 @@ angular.module('windht.Youku',[]).factory('Youku',function($http,$q){
   return {
     getVideoSrc:function(vid) {
       var deferred = $q.defer();
-      $http.jsonp("http://v.youku.com/player/getPlaylist/VideoIDS/"+vid+"/Pf/4/ctype/12/ev/1?callback=JSON_CALLBACK").success(function(param){
+      $http.jsonp("http://tonghu.info/youku-api?callback=JSON_CALLBACK&vid="+vid).success(function(param){
           var yk=youku(param);
           var url = "http://k.youku.com/player/getFlvPath/sid/" + yk.sid;
           url += "_00/st/mp4/fileid/" + yk.fileid;
@@ -156,7 +156,10 @@ angular.module('windht.Youku',[]).factory('Youku',function($http,$q){
   return {
     restrict: 'A',
     link: function (scope, element, attrs) {
-      element.attr('src',Youku.getVideoSrc(attrs.youkuId));
+      Youku.getVideoSrc(attrs.youkuId).then(function(url){
+        element.attr('src',url);
+      })
+      
     }
   }
 })
