@@ -24,6 +24,12 @@ I just did the wrapping for angular.
               angular.element('ChooseAPlayer!').attr('src',url);
           });
         }])
+        
+* Or directly and simply use a nice directive
+        
+        <video youku-id="XOTY1MjQ2OTc2"></video>
+
+* And there you go!
 
 # Updating
 In case of any change of the parsing functions, this service will update in a periodically of one months. Post any issues for hurry update.
