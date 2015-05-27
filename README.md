@@ -11,6 +11,9 @@ All the parse functions are from [http://runjs.cn/code/incos4te](http://runjs.cn
 
 I just did the wrapping for angular.
 
+# How the cross domain works?
+Since the Youku website itself doesn't support "jsonp" (a type of cross domain data fetch). A personal server did the job of grasping youku json files at the backend, opening a usable jsonp api for use.
+
 # Usage
 * Inject the module
 
