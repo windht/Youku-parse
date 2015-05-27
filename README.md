@@ -1,5 +1,5 @@
 # Youku-parse
-an angular directive for parsing youku video id into real urls.
+An angular directive for parsing youku video id into real mp4 urls.
 
 # Last Update
 Last update the algorithm on March 23rd.
@@ -10,9 +10,6 @@ Added the cross domain support using jsonp.
 All the parse functions are from [http://runjs.cn/code/incos4te](http://runjs.cn/code/incos4te).
 
 I just did the wrapping for angular.
-
-# How the cross domain works?
-Since the Youku website itself doesn't support "jsonp" (a type of cross domain data fetch). A personal server did the job of grasping youku json files at the backend, opening a usable jsonp api for use.
 
 # Usage
 * Inject the module
