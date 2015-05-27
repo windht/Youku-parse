@@ -132,7 +132,7 @@ angular.module('windht.Youku',[]).factory('Youku',function($http,$q){
   return {
     getVideoSrc:function(vid) {
       var deferred = $q.defer();
-      $http.get("http://v.youku.com/player/getPlaylist/VideoIDS/"+vid+"/Pf/4/ctype/12/ev/1").success(function(param){
+      $http.jsonp("http://v.youku.com/player/getPlaylist/VideoIDS/"+vid+"/Pf/4/ctype/12/ev/1?callback=JSON_CALLBACK").success(function(param){
           var yk=youku(param);
           var url = "http://k.youku.com/player/getFlvPath/sid/" + yk.sid;
           url += "_00/st/mp4/fileid/" + yk.fileid;
