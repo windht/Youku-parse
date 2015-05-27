@@ -152,3 +152,11 @@ angular.module('windht.Youku',[]).factory('Youku',function($http,$q){
     }
   }
 })
+.directive('youkuId', function ($rootScope, $timeout,Youku) {
+  return {
+    restrict: 'A',
+    link: function (scope, element, attrs) {
+      element.attr('src',Youku.getVideoSrc(attrs.youkuId));
+    }
+  }
+})
