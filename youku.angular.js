@@ -160,6 +160,13 @@ angular.module('windht.Youku',[]).factory('Youku',function($http,$q){
         element.attr('src',url);
       })
       
+      scope.$watch(function(){
+        return attrs.youkuId;
+      },function(newVal,oldVal){
+        Youku.getVideoSrc(newVal).then(function(url){
+          element.attr('src',url);
+        })
+      })
     }
   }
 })

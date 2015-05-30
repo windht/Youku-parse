@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+    <title>Youku-parse</title>
+
+    <script src="lib/angular.min.js"></script>
+    <script src="youku.angular.js"></script>
+
+    <style type="text/css">
+      html,body {
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+      }
+      body {
+        text-align: center;
+        padding: 0;
+
+      }
+    </style>
+
+    <script type="text/javascript">
+      angular.app('demo',['windht.Youku'])
+    </script>
+
+  </head>
+
+  <body ng-app="demo">
+    <input type="text" ng-model="id">
+    <video youku-id="id"></video>
+  </body>
+</html>
