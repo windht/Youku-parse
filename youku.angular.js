@@ -132,7 +132,7 @@ angular.module('windht.Youku',[]).factory('Youku',function($http,$q){
   return {
     getVideoSrc:function(vid) {
       var deferred = $q.defer();
-      $http.jsonp("http://v.youku.com/player/getPlaylist/VideoIDS/"+vid+"/Pf/4/ctype/12/ev/1__callback=JSON_CALLBACK").success(function(param){
+      $http.jsonp("http://v.youku.com/player/getPlaylist/VideoIDS/"+vid+"/Pf/4/ctype/12/ev/1?__callback=JSON_CALLBACK").success(function(param){
           var yk=youku(param);
           var url = "http://k.youku.com/player/getFlvPath/sid/" + yk.sid;
           url += "_00/st/mp4/fileid/" + yk.fileid;
@@ -152,20 +152,25 @@ angular.module('windht.Youku',[]).factory('Youku',function($http,$q){
     }
   }
 })
-.directive('youkuId', function ($rootScope, $timeout,Youku) {
+.directive('youku', function ($rootScope, $timeout, Youku) {
   return {
     restrict: 'A',
     link: function (scope, element, attrs) {
-      Youku.getVideoSrc(attrs.youkuId).then(function(url){
-        element.attr('src',url);
-      })
-      
-      scope.$watch(function(){
-        return attrs.youkuId;
-      },function(newVal,oldVal){
-        Youku.getVideoSrc(newVal).then(function(url){
+
+      if (attrs.youkuId && attrs.youkuId!='') {
+        Youku.getVideoSrc(attrs.youkuId).then(function(url){
           element.attr('src',url);
         })
+      }
+
+      var cleanListen=$rootScope.$on('$video.update',function(event,data){
+        Youku.getVideoSrc(data).then(function(url){
+          element.attr('src',url);
+        })
+      });
+
+      scope.$on('$destroy',function(){
+        cleanListen();
       })
     }
   }

@@ -19,16 +19,28 @@
         padding: 0;
 
       }
+
+      video {
+        display: block;
+        margin: 0 auto;
+      }
     </style>
 
     <script type="text/javascript">
-      angular.app('demo',['windht.Youku'])
+      angular.module('demo',['windht.Youku'])
+      .controller('demoCtrl',function ($scope,$rootScope){
+        $scope.id="XOTY1MjQ2OTc2";
+        $scope.update=function(){
+          $rootScope.$broadcast('$video.update',$scope.id);
+        }
+      })
     </script>
 
   </head>
 
-  <body ng-app="demo">
-    <input type="text" ng-model="id">
-    <video youku-id="id"></video>
+  <body ng-app="demo" ng-controller="demoCtrl">
+    请输入视频id：<input type="text" ng-model="id">
+    <button ng-click="update()">刷新视频</button>
+    <video youku controls></video>
   </body>
 </html>
