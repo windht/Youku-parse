@@ -2,12 +2,12 @@
 An angular directive for parsing youku video id into real mp4 urls.
 
 # Last Update
-Last update the algorithm on March 23rd.
-Functional test on May 27th, worked well.
+Last update the algorithm on 2016 Feb 19th.
+Functional test on 2016 Feb 19th, worked well.
 Added the cross domain support using jsonp.
 
 # Source
-All the parse functions are from [http://runjs.cn/code/incos4te](http://runjs.cn/code/incos4te).
+All the parse functions are from MAMA2 [https://github.com/zythum/mama2/blob/master/src/seeker_youku.js](https://github.com/zythum/mama2/blob/master/src/seeker_youku.js).
 
 I just did the wrapping for angular.
 
@@ -28,6 +28,17 @@ I just did the wrapping for angular.
 * Or directly and simply use a nice directive
         
         <video youku youku-id="XOTY1MjQ2OTc2"></video>
+
+* Or You may want to do dynamic loading
+
+		//place a video with "youku" attr
+		<video youku></video>
+
+		angular.controller('YourCtrl',function($rootScope){
+			var vid;
+          	$rootScope.$broadcast("$video.update",vid)
+          	// broadcast the vid
+        })
 
 * And there you go!
 
