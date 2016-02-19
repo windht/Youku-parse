@@ -361,7 +361,7 @@ angular.module('windht.Youku',[]).factory('Youku',function($http,$q){
   return {
     getVideoSrc:function(vid) {
       var deferred = $q.defer();
-      $http.jsonp("'http://play.youku.com/play/get.json?vid=' + vid + '&ct=12'__callback=JSON_CALLBACK").success(function(param){
+      $http.jsonp("'http://play.youku.com/play/get.json?vid=' + vid + '&ct=12__callback=JSON_CALLBACK").success(function(param){
           if(param == -1) {
             log('解析youku视频地址失败', 2)
           }
