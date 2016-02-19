@@ -6,6 +6,11 @@ angular.module('windht.Youku',[]).factory('Youku',function($http,$q){
   var rs;
   var sid;
   var token;
+
+
+  var encode64 = btoa;
+  var decode64 = atob;
+
   function decode64(a) {
     if (!a)
       return "";
@@ -360,10 +365,14 @@ angular.module('windht.Youku',[]).factory('Youku',function($http,$q){
 
   return {
     getVideoSrc:function(vid) {
+      console.log("fetching!")
       var deferred = $q.defer();
-      $http.jsonp("'http://play.youku.com/play/get.json?vid=' + vid + '&ct=12__callback=JSON_CALLBACK").success(function(param){
+      $http.jsonp("http://play.youku.com/play/get.json?vid=" + vid + "&ct=12&callback=JSON_CALLBACK").success(function(param){
+          
+
+          console.log(param);
           if(param == -1) {
-            log('解析youku视频地址失败', 2)
+            console.log('解析youku视频地址失败', 2)
           }
           rs = param;
           var a = param.data,
@@ -373,6 +382,9 @@ angular.module('windht.Youku',[]).factory('Youku',function($http,$q){
           c     = c.split("_");
           sid   = c[0];
           token = c[1];
+
+          var canPlayM3U8 = !!document.createElement('video').canPlayType('application/x-mpegURL')
+
           if ( canPlayM3U8 && navigator.userAgent.indexOf('PlayStation') === -1 ) {
             var ep  = encodeURIComponent(D(E(F(mk_a4 + "poz" + userCache_a2, [19, 1, 4, 7, 30, 14, 28, 8, 24, 17, 6, 35, 34, 16, 9, 10, 13, 22, 32, 29, 31, 21, 18, 3, 2, 23, 25, 27, 11, 20, 5, 15, 12, 0, 33, 26]).toString(), sid + "_" + _id + "_" + token)));
             var oip = a.security.ip;
@@ -381,22 +393,40 @@ angular.module('windht.Youku',[]).factory('Youku',function($http,$q){
               ['高清', 'http://pl.youku.com/playlist/m3u8?vid='+_id+'&type=mp4&ctype=12&keyframe=1&ep='+ep+'&sid='+sid+'&token='+token+'&ev=1&oip='+oip],
               ['标清', 'http://pl.youku.com/playlist/m3u8?vid='+_id+'&type=flv&ctype=12&keyframe=1&ep='+ep+'&sid='+sid+'&token='+token+'&ev=1&oip='+oip]
             ];
-            log('解析youku视频地址成功 ' + source.map(function (item) {return '<a href='+item[1]+'>'+item[0]+'</a>'}).join(' '), 2)
+            console.log('解析youku视频地址成功 ' + source.map(function (item) {return '<a href='+item[1]+'>'+item[0]+'</a>'}).join(' '), 2)
             deferred.resolve(source[2][1]);
           } else {
             var t = new PlayListData(a, a.stream, 'mp4')
+            console.log(t._videoSegsDic.streams);
             var source = [
-              ['标清', t._videoSegsDic.streams['guoyu']['3gphd'][0].src]
+              ['标清', t._videoSegsDic.streams['guoyu']['mp4'][0].src]
             ];
-            log('解析youku视频地址成功 ' + source.map(function (item) {return '<a href='+item[1]+'>'+item[0]+'</a>'}).join(' '), 2)
+            console.log('解析youku视频地址成功 ' + source.map(function (item) {return '<a href='+item[1]+'>'+item[0]+'</a>'}).join(' '), 2)
             deferred.resolve(source[0][1]);
           }
           
       }).error(function(param){
+        console.log(param);
         deferred.reject(param);
       })
 
       return deferred.promise;
+    }
+  }
+})
+.directive('youku', function ($rootScope, $timeout,Youku) {
+  return {
+    restrict: 'A',
+    link: function (scope, element, attrs) {
+
+      scope.$on("$video.update",function(event,id){
+        Youku.getVideoSrc(id).then(function(url){
+          element.attr('src',url);
+        })
+      })
+
+      
+      
     }
   }
 })
