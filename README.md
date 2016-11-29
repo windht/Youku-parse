@@ -2,8 +2,8 @@
 An angular directive for parsing youku video id into real mp4 urls.
 
 # Last Update
-Last update the algorithm on 2016 Feb 19th.
-Functional test on 2016 Feb 19th, worked well.
+Last update the algorithm on 2016 Nov 29th.
+Functional test on 2016 Nov 29th, worked well.
 Added the cross domain support using jsonp.
 
 # Source
