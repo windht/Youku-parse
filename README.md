@@ -1,6 +1,9 @@
 # Youku-parse
 An angular directive for parsing youku video id into real mp4 urls.
 
+# Deprecated
+This codebase is no longer usable since the algorithm source in MAMA2 [https://github.com/zythum/mama2/blob/master/src/seeker_youku.js] is no longer working.
+
 # Last Update
 Last update the algorithm on 2016 Nov 29th.
 Functional test on 2016 Nov 29th, worked well.
